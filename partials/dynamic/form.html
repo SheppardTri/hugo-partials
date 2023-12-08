@@ -1,0 +1,89 @@
+{{ range . }}
+<dxp-form id="default-form" append-data redirect-url="https://dxp-xapi.develop.viewdo.run/v4/experience/link/c2-ecu/org"
+  class="text-center" wait-time="2000">
+  <div class="px-6" id="scroll-to">
+    {{ if eq .Page.Params.slug "apply-now" }}
+    <p class="max-w-[33rem] mx-auto pb-2 text-center text-sm">
+      Once you’ve completed the form below, you’ll automatically be redirected to the online application experience for
+      Example University. There, you’ll be asked two multiple-choice questions and then given the opportunity to
+      create an account and complete your application.
+    </p>
+    {{ else }}
+    <h2 class="font-normal mb-4 text-center text-4xl mx-auto pb-2 px-6">
+      {{if .headline}}
+      {{.headline}}
+      {{end}}
+    </h2>
+    <p class="max-w-[33.9rem] mx-auto pb-2 text-center text-sm">
+      {{if .text}}
+      {{.text}}
+      {{end}}
+    </p>
+    {{ end }}
+  </div>
+  <dxp-action command="set-event" data-key="sent-lead"></dxp-action>
+  <n-action topic="analytics" command="send-event" {{ .gtmEventName | safeHTMLAttr }}>
+  </n-action>
+  <div class="px-4 hide-labels max-w-[30rem] mx-auto mt-4 flex flex-col gap-2 text-left">
+    {{range .formInputs}}
+    <dxp-input input-key="{{.inputKey}}" placeholder="{{.placeHolderText | markdownify}}" {{if
+      .required}}required{{end}} {{if .hidden}}hidden{{end}} {{if
+      .validationMsg}}validation-message="{{.validationMsg | markdownify }}" {{end}} {{if
+      .setValue}}set-value="{{.setValue}}" {{end}}>
+    </dxp-input>
+    {{end}}
+  </div>
+  <div class="text-center p-6">
+    <button type="submit" class="button-secondary font-header font-normal px-8 md:px-8 max-w-fit drop-shadow-xl">
+      {{.submitBtnText}}
+    </button>
+  </div>
+  {{if .callCta}}
+  {{range .callCta}}
+  <p class="text-center font-base">Or call <a class="no-underline" href="tel:{{.callHref}}">{{.callText}}</a>
+  </p>
+  {{end}}
+  {{end}}
+  <p class="px-6 max-w-[500px] mx-auto text-gray-800 text-xs italics text-justify pb-6">
+    {{.legalSubText}}
+  </p>
+
+  <div slot="result" class="text-center p-8">
+    <h2 id="form-h2-thankyou" class="text-primary">{{.thankYouHeadline}}</h2>
+    <svg class="mx-auto py-4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+      style="margin: auto; background: rgba(255, 255, 255, 0); display: block; shape-rendering: auto;" width="200px"
+      height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+      <path d="M10 50A40 40 0 0 0 90 50A40 42 0 0 1 10 50" fill="#d3d3d3" stroke="none">
+        <animateTransform attributeName="transform" type="rotate" dur="1s" repeatCount="indefinite" keyTimes="0;1"
+          values="0 50 51;360 50 51"></animateTransform>
+      </path>
+    </svg>
+    <h3 class="text-center">Redirecting you now...</h3>
+  </div>
+
+</dxp-form>
+
+{{end}}
+
+<script>
+  document.body.addEventListener('dxp:initialized', e => {
+    window.experience = e.detail
+  })
+
+  let count = 0
+  const funcAttach = () => {
+    var program = document.querySelector('dxp-input[input-key=program]')
+    setTimeout(() => {
+      count++
+      if (program == null) {
+        if (count < 20) funcAttach()
+        return
+      }
+      program.shadowRoot.addEventListener('change', async () => {
+        let selectValue = program.shadowRoot.getElementById("program").value
+        await experience.setData('ocid', selectValue.toLowerCase())
+      })
+    }, 500)
+  }
+  funcAttach()
+</script>

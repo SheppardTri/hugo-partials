@@ -1,0 +1,8 @@
+{{ range . }}
+<div
+  class="text-left md:min-w-[22rem] max-w-[22rem] min-h-[35rem] m-4 header-font py-8 px-8 bg-white rounded-[8px] drop-shadow-2xl">
+  <h2 class="text-center min-h-[8rem] py-0">{{.headline}}</h2>
+  <p class="min-h-[24rem]">{{.text}}</p>
+  {{partial "render-content" .sections}}
+</div>
+{{ end }}

@@ -1,0 +1,45 @@
+<section id="course-paragraph"
+  class="w-screen mx-auto my-auto px-0">
+  <div class="w-full mx-auto  max-w-[1000px] md:max-w-[700px] flex flex-col items-center">
+    <div class="flex flex-col items-center px-6 pt-6 lg:px-0">
+      {{range .}}
+        {{ if .headline }}
+          <h2 class="text-center py-4 mt-4 md:max-w-[40rem]">{{ .headline | markdownify }}</h2>
+        {{ end }}
+        {{ if .text }}
+          <p class="md:max-w-[800px] md:text-center lg:px-2 py-2">{{ .text | markdownify }}</p>
+        {{ end }}
+        {{ range .columns }}
+          {{ if .columnHeadline }}
+            <p class="font-semibold uppercase font-button text-lg text-center mt-8">{{ .columnHeadline | markdownify }}</p>
+          {{ end }}
+            <div class="flex flex-col md:flex-row justify-between">
+              {{ if .columnHeadline }}
+                <div class="flex-1">
+                  {{ range .columnLeft }}
+                    {{ if .headline }}
+                      <p class="font-bold pb-0 text-dark-blue text-center">{{ .headline | markdownify }}</p>
+                    {{ end }}
+                    {{ if .text }}
+                      <p class="pt-0 pb-4 text-center">{{ .text | markdownify }}</p>
+                    {{ end }}
+                  {{ end }}
+                </div>
+                <div class="flex-1">
+                  {{ range .columnRight }}
+                    {{ if .headline }}
+                      <p class="font-bold pb-0 text-dark-blue text-center">{{ .headline | markdownify }}</p>
+                    {{ end }}
+                    {{ if .text }}
+                      <p class="pt-0 pb-4 text-center">{{ .text | markdownify }}</p>
+                    {{ end }}
+                  {{ end }}
+                </div>
+              {{ end }}
+            </div>
+        {{end}}
+      {{end}}
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,12 @@
+<div class="{{if .bgColor}}{{.bgColor}}{{else}}bg-secondary{{end}} py-16 px-6">
+  <p
+    class="text-sm text-center {{if .preHeadlineColor}}{{.preHeadlineColor}}{{else}}text-white{{end}} max-w-[35rem] mx-auto">
+    {{ .preHeadline | markdownify }}</p>
+  <h2 class="text-center {{if .headlineColor}}{{.headlineColor}}{{else}}text-white{{end}} max-w-[44rem] mx-auto py-0">{{
+    .headline | markdownify}}</h2>
+  <p class="text-center {{if .textColor}}{{.textColor}}{{else}}text-white{{end}} max-w-[47rem] mx-auto">{{ .text |
+    markdownify}}</p>
+  <div class="flex justify-center pt-6">
+    {{partial "render-content" .sections}}
+  </div>
+</div>

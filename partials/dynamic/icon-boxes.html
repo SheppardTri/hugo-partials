@@ -1,0 +1,16 @@
+<div class="flex flex-col lg:flex-row md:flex-wrap justify-center items-center lg:items-start mb-4">
+  {{ range . }}
+  <div
+    class="text-center min-w-[16rem] max-w-[17rem] py-6 mx-6 {{if .hasBG}}bg-white rounded-[8px] m-2 min-h-[17rem]{{end}}">
+    <div class="flex min-h-[5rem] items-center">
+      <img width="85" height="85" src="/assets/icons/{{ .img }}" alt="{{ .alt }}" loading="lazy"
+        class="mx-auto pb-3 min-h-[5rem]">
+    </div>
+    {{if .headline}}<p class="text-center font-header text-secondary no-wrap text-base font-semibold pt-2">{{
+      .headline | markdownify }}</p>
+    {{end}}
+    {{if .text}}<p class="text-center {{if .fontBody}}font-body{{else}}font-header{{end}} no-wrap text-base pt-2">{{
+      .text | markdownify}}</p>{{end}}
+  </div>
+  {{ end }}
+</div>

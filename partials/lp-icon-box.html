@@ -1,0 +1,12 @@
+<div class="flex flex-col md:flex-row flex-wrap justify-center items-center md:items-start mb-12">
+  {{ range . }}
+  <div class="text-center max-w-[18rem] py-6 px-3">
+    <div class="flex min-h-[5rem] items-center {{.scale}}">
+      <img width="{{.width}}" height="{{.height}}" src="/assets/icons/{{ .img }}" alt="{{ .alt }}" loading="lazy"
+        class="mx-auto pb-3">
+    </div>
+    <p class="text-center font-header no-wrap text-base pt-2">{{ .text }}
+    </p>
+  </div>
+  {{ end }}
+</div>

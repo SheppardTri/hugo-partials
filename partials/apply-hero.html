@@ -1,0 +1,24 @@
+<div fetchpriority="high"
+  class="bg-gradient-to-r from-brand to-dark-red bg-fit min-h-[32rem] md:min-h-[35rem] md:pr-0 flex justify-center items-center {{.imageMobile}} {{.imageTablet}} {{.imageDesktop}} relative z-[0]">
+  <div class="w-[1100px] mx-auto h-full flex flex-col items-center px-6 sm:p-6 text-left">
+    <div class=" flex flex-col items-center mx-auto">
+      <div class="max-w-[30rem] md:max-w-[35rem]">
+        <h1 class="text-3xl md:text-5xl font-normal text-white text-center z-10 relative">
+          {{.heading | markdownify}}
+        </h1>
+      </div>
+      <div class="max-w-[26rem]">
+        <p class="text-lg md:text-2xl font-semibold text-white text-center mx-auto z-10 relative">
+          {{.subheading}}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="min-w-full max-w-[1200px] bg-light px-6">
+</div>
+<div class="max-w-[900px] mx-auto mt-[-8rem]">
+  <div class="relative bg-white pb-2 drop-shadow-2xl -mt-32 max-w-[90vw] md:max-w-[45rem] mx-auto">
+    {{ partial "apply-form" . }}
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="max-w-[1000px] mx-auto flex justify-center flex-wrap mb-24">
+  {{ range . }}
+  <div class="p-6 m-4 bg-light-grey text-left h-full relative cursor-pointer rounded-lg max-w-[22rem]">
+    <h2 class="text-3xl py-0 after:absolute after:inset-0">{{.headline | markdownify}}
+    </h2>
+    <div class="py-2">
+      {{.text | markdownify}}
+    </div>
+    <a href="{{.href}}" class="after:absolute after:inset-0 text-brand no-underline uppercase font-header"
+      aria-label="Learn More About Your Degree Options">
+      Learn More &rarr; <span class="sr-only">About Your Degree Options</span>
+    </a>
+  </div>
+  {{ end }}
+</div>

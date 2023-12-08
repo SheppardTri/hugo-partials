@@ -1,0 +1,10 @@
+<section class="relative mt-0 md:-mt-48 mx-auto max-w-[60rem] px-0">
+  <div class="w-full flex">
+    {{ range . }}
+    <img width="{{.width}}" height="450px" class="min-w-full md:min-w-0 mx-auto {{if .imgMobile}}hidden md:block{{end}} block" src="/assets/images/{{.imgDesktop}}"
+      alt="{{.alt}}" loading="lazy">
+    {{if .imgMobile}}<img width="{{.width}}" height="450px" class="min-w-full md:min-w-0 mx-auto block md:hidden" src="/assets/images/{{.imgMobile}}" alt="{{.alt}}"
+      loading="lazy">{{end}}
+    {{ end }}
+  </div>
+</section>

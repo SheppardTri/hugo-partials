@@ -1,0 +1,33 @@
+<section class="w-screen mx-auto my-auto px-0 relative z-[1]">
+  <div class="w-full mx-auto  max-w-[1000px] md:max-w-[700px] flex flex-col items-center">
+    <div class="flex flex-col items-center px-6 py-6 pb-8 lg:px-0">
+      {{ range .}}
+      {{if .headline}}<h2 class="text-center py-4 mt-4 md:max-w-[40rem]">{{.headline | markdownify}}</h2>{{end}}
+      <div class="flex flex-col">
+        {{if .text}}<p class="md:max-w-[800px] md:text-center lg:px-2 py-2">{{.text | markdownify}}</p>{{end}}
+        <div class="flex flex-col md:flex-row justify-between">
+          <div class="flex-1">
+            {{range .columns}}
+            {{range .columnLeft}}
+            {{if .headline}}<p class="font-bold pb-0 text-secondary font-header text-xl text-center">{{.headline |
+              markdownify}}</p>{{end}}
+            {{if .text}}<p class="pt-0 pb-4 text-center">{{.text | markdownify}}</p>{{end}}
+            {{end}}
+            {{end}}
+          </div>
+          <div class="flex-1">
+            {{range .columns}}
+            {{range .columnRight}}
+            {{if .headline}}<p class="font-bold pb-0 text-secondary font-header text-xl text-center">{{.headline}}</p>
+            {{end}}
+            {{if .text}}<p class="pt-0 pb-4 text-center">{{.text | markdownify}}</p>{{end}}
+            {{end}}
+            {{end}}
+          </div>
+        </div>
+        {{ end }}
+      </div>
+      <small class="italic text-left pt-4 self-center">*Salary data from Payscale</small>
+    </div>
+  </div>
+</section>

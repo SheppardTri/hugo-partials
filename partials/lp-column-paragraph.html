@@ -1,0 +1,45 @@
+{{- $selection := .Page.Params -}}
+<section class="w-screen mx-auto my-auto bg-white px-0">
+  <div class="w-full mx-auto  max-w-[1000px] md:max-w-[800px] flex flex-col items-center">
+    <div class="flex flex-col items-center px-6 py-6 pb-8 lg:px-0">
+      {{ range $selection.columnParagraph}}
+      <h2 class="text-center py-4 mt-4 md:max-w-[40rem]">{{.headline | markdownify}}</h2>
+      <div class="flex flex-col">
+        <p class="md:max-w-[800px] text-center lg:px-2 py-2">{{.text | markdownify}}</p>
+        {{ end }}
+        <div class="flex flex-wrap justify-between">
+          <div class="flex-row justify-center mx-auto px-2 w-full">
+            {{range $selection.columnOne}}
+            <div class="w-full flex flex-wrap justify-center py-2">
+              {{range .salary}}
+              <div class="flex flex-col justify-center mx-auto">
+                <p class="font-bold pb-0 text-black text-center">
+                  {{.headline | markdownify}}
+                </p>
+                <p class="pt-0 pb-4 text-center">{{.text}}</p>
+              </div>
+              {{end}}
+
+            </div>
+            {{end}}
+          </div>
+          <div class="flex-row justify-center mx-auto px-2 w-full">
+            {{range $selection.columnTwo}}
+            <div class="w-full flex flex-wrap justify-center py-2 gap-x-2">
+              {{range .salary}}
+              <div class="flex flex-col justify-center mx-auto">
+                <p class="font-bold pb-0 text-black text-center">
+                  {{.headline}}
+                </p>
+                <p class="pt-0 pb-4 text-center">{{.text}}</p>
+              </div>
+              {{end}}
+            </div>
+            {{end}}
+          </div>
+        </div>
+      </div>
+      <small class="italic text-left pt-4">*Salary data from Payscale</small>
+    </div>
+  </div>
+</section>

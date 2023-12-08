@@ -1,0 +1,10 @@
+{{if .globalFooter}}
+<button type="button" onclick="handleGlobalFooterClick()">
+  {{partial "render-content" .sections}}
+</button>
+{{else if .lpFooter}}
+<button type="button" onclick="handleLpFooterClick()">
+  {{partial "render-content" .sections}}
+</button>
+{{end}}
+<!-- TODO, make this parent the size of it's child button -->

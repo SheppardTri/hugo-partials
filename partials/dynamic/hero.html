@@ -1,0 +1,21 @@
+<div
+  class="bg-overlay bg-blend-multiply text-white w-full bg-brand pb-4 {{.imageMobile}} {{.imageTablet}} {{.imageDesktop}} bg-no-repeat bg-cover bg-[position:70%] {{.classes}}">
+  <div
+    class="min-h-[30rem] md:pr-0 flex {{if .heroLeft}}justify-start{{else}}justify-center{{end}} items-center max-w-[1200px] mx-auto">
+    <div
+      class="h-full flex flex-col py-20 px-8 {{if .heroLeft}}max-w-[500px]{{else}}max-w-[1000px]{{end}} {{if .heroLeft}}items-start{{else}}items-center{{end}}">
+      <div class="{{.decoration}}"></div>
+      <h1
+        class="text-4xl {{if .heroLeft}}text-left{{else}}text-center{{end}} md:text-5xl font-light text-white mx-auto pt-0 {{.headingFont}}">
+        {{.heading | markdownify}}
+      </h1>
+      <div class="mt-4">
+        <p
+          class="text-xl {{if .heroLeft}}text-left{{else}}text-center{{end}} font-medium text-white mx-auto {{.subFont}}">
+          {{.subheading}}
+        </p>
+      </div>
+      {{ partial "render-content" .sections }}
+    </div>
+  </div>
+</div>

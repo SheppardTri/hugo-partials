@@ -1,0 +1,25 @@
+{{ range . }}
+{{ if .html }}
+{{ .html | safeHTML }}
+{{ else if .content }}
+{{ partial .partial (.content | markdownify) }}
+{{ else if .params }}
+{{ partial .partial (index $.Page.Params .params) }}
+{{ else if .file }}
+{{ $fileContent := readFile .file }}
+{{ if eq (path.Ext .file) ".md" }}
+{{ $fileContent = ($fileContent | markdownify) }}
+{{ else if eq (path.Ext .file) ".html" }}
+{{ $fileContent = ($fileContent | safeHTML) }}
+{{ end }}
+{{ if .partial }}
+{{ partial .partial $fileContent }}
+{{ else }}
+{{ $fileContent }}
+{{ end }}
+{{ else if .with }}
+{{ partial .partial .with }}
+{{ else }}
+{{ partial .partial $ }}
+{{ end }}
+{{ end }}

@@ -1,0 +1,90 @@
+<link rel="canonical" href="{{ .Page.Permalink }}">
+<!-- PWA -->
+{{ if in .Permalink "/lp/" }}
+<meta name="robots" content="noindex">
+{{ end }}
+<!-- GTM -->
+{{ $gtmUrl := .Site.Params.urls.gtm }}
+<link rel="modulepreload" as="script" href="{{ $gtmUrl }}">
+<script defer>
+  (function (w, d, s, l, i) {
+    w[l] = w[l] || [];
+    w[l].push({
+      'gtm.start': new Date().getTime(),
+      event: 'gtm.js'
+    });
+    var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s),
+      dl = l != 'dataLayer' ? '&l=' + l : '';
+    j.async = true;
+    j.src =
+      "{{- $gtmUrl }}" + dl;
+    f.parentNode.insertBefore(j, f);
+  })(window, document, 'script', 'dataLayer');
+</script>
+<!-- End GTM -->
+<meta name="msapplication-tap-highlight" content="no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="nent-app">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="theme-color" content="#0000">
+<meta name="viewport"
+  content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+<meta name="google-site-verification" content="ZGla15pFmvEphUhAelcpjnisT_r_FLgyc3eLqSfgdMc">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/assets/ms-icon-144x144.png">
+
+{{- if isset .Params "redirect" -}}
+<meta http-equiv="refresh" content="0; url={{ .Page.Params.redirect }}">
+{{- end -}}
+
+<!-- Optimizations -->
+{{- $used := slice }}
+{{- range .Site.Params.urls -}}
+{{- $url := urls.Parse . -}}
+{{- if not (in $used $url.Host) -}}
+<link rel="dns-prefetch" href="{{ $url.Host }}">
+<link rel="preconnect" href="{{ $url.Scheme }}://{{ $url.Host }}">
+{{- $used = $used | append $url.Host -}}
+{{- end -}}
+{{- end -}}
+
+
+
+<!-- FONT -->
+{{- $fontUrl := .Site.Params.urls.font -}}
+{{- $fontUrl2 := .Site.Params.urls.font2 -}}
+<link rel="preload" href="{{ $fontUrl }}" as="style">
+<link rel="stylesheet" media="print" onload="this.media='all'" href="{{ $fontUrl }}">
+<link rel="preload" href="{{ $fontUrl2 }}" as="style">
+<link rel="stylesheet" media="print" onload="this.media='all'" href="{{ $fontUrl2 }}">
+
+<!-- CSS -->
+{{ $styles := resources.Get "/css/output.css" -}}
+{{- if .Page.Params.inlineStyles -}}
+<style>
+  {{- $styles.Content | safeCSS -}}
+</style>
+{{- else -}}
+{{- if .Site.IsServer -}}
+<link rel="stylesheet" href="{{ $styles.RelPermalink }}">
+{{- else -}}
+{{- $styles := $styles | minify | fingerprint -}}
+<link rel="stylesheet" href="{{ $styles.RelPermalink }}" integrity="{{ $styles.Data.Integrity }}">
+{{- end -}}
+{{- end }}
+
+<!-- NENT -->
+{{- $nent := .Site.Params.urls.nent -}}
+<link rel="modulepreload" as="script" href="{{ $nent }}/n-data.entry.js">
+<script type="module" src="{{ $nent }}/nent.esm.js"></script>
+
+<!-- DXP -->
+{{- $dxp := .Site.Params.urls.dxp -}}
+<link rel="modulepreload" as="script" href="{{ $dxp }}/dxp-experience.entry.js">
+<link rel="modulepreload" as="script" href="{{ $dxp }}/dxp-input.entry.js">
+<link rel="modulepreload" as="script" href="{{ $dxp }}/dxp-form.entry.js">
+<link rel="modulepreload" as="script" href="{{ $dxp }}/dxp-gtm.entry.js">
+<script type="module" src="{{ $dxp }}/dxp.esm.js"></script>

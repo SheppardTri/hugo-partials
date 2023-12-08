@@ -1,0 +1,16 @@
+<div class="max-w-[900px] mx-auto mb-2 pb-6">
+  <dxp-accordion class="hydrated">
+    <div class="accordion" part="base">
+      {{ range . }}
+      <div class="my-4">
+        <dxp-collapsible class="hydrated">
+          <span class="font-header" slot="heading">{{.headline}}</span>
+          <div class="font-body bg-white p-4 rounded-b">
+            {{partial "render-content" .sections}}
+          </div>
+        </dxp-collapsible>
+      </div>
+      {{ end }}
+    </div>
+  </dxp-accordion>
+</div>

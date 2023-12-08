@@ -1,0 +1,227 @@
+{{ $currentPage := . }}
+
+<nav id="header-nav" class="bg-transparent w-screen fixed top-0 z-10 duration-800">
+  <div class="container flex justify-between lg:justify-center items-center mx-auto max-w-[100vw] px-3">
+    <a id="header-nav-logo"
+      class="flex flex-start justify-start items-center h-20 lg:h-22 w-[18rem] max-w-[16vw] min-w-[12rem]" href="/">
+      <img class="w-[95%] max-h-[4rem]" width="200px" height="50px" src="/assets/images/logo-primary.png"
+        alt="PDS logo">
+    </a>
+
+    <button id="nav-button" type="button"
+      class="inline-flex items-center p-2 ml-3 text-sm rounded-lg lg:hidden hover:bg-brand focus:outline-none focus:ring-2 focus:ring-gray-200 text-gray-400 hover:bg-gray-700 focus:ring-gray-600"
+      aria-controls="navbar-default" aria-expanded="false">
+      <span class="sr-only">Open main menu</span>
+      <svg class="w-6 h-6 text-white" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd"
+          d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+          clip-rule="evenodd"></path>
+      </svg>
+    </button>
+
+    <!-- Desktop Navigation -->
+    <div class='hidden w-full h-screen lg:h-auto lg:block lg:w-auto {{if in .Permalink "/apply-now/"}}pr-12{{end}}'
+      id="nav-bar">
+      <ul id="nav-list"
+        class="flex flex-col gap-0 lg:items-center lg:justify-between pl-0 list-none mt-4 lg:flex-row lg:space-x-8 lg:mt-0 lg:text-sm lg:font-medium">
+        {{ range .Site.Menus.main.ByWeight }}
+
+        {{ if .HasChildren}}
+        <li class="hidden lg:block dropdown py-1 font-header tracking-wider lg:!px-0 lg:!mx-[1rem]">
+          {{ if or (eq .Name "Getting Started") (eq .Name "Resources") (eq .Name "Programs") }}
+          <p class="text-white font-header pointer-events-none flex items-center gap-x-1">{{ .Name }}
+            <span id="nav-dropdown-icon" class="text-xs pl-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+                <g fill="currentColor">
+                  <g>
+                    <path
+                      d="M20.65 7.4c-.3-.3-.75-.3-1.05 0L12 15 4.4 7.4c-.3-.3-.75-.3-1.05 0s-.3.75 0 1.05L12 17.1l8.65-8.65c.3-.25.3-.75 0-1.05z"
+                      fill-rule="evenodd"></path>
+                  </g>
+                </g>
+              </svg>
+            </span>
+          </p>
+          {{ else }}
+          <a href="{{ .URL }}" class='flex items-center text-md py-2 no-underline lg:p-0 !text-light'>
+            {{ .Name }} <span id="nav-dropdown-icon" class="text-xs pl-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+                <g fill="currentColor">
+                  <g>
+                    <path
+                      d="M20.65 7.4c-.3-.3-.75-.3-1.05 0L12 15 4.4 7.4c-.3-.3-.75-.3-1.05 0s-.3.75 0 1.05L12 17.1l8.65-8.65c.3-.25.3-.75 0-1.05z"
+                      fill-rule="evenodd"></path>
+                  </g>
+                </g>
+              </svg>
+            </span>
+          </a>
+          {{end}}
+          <ul class="dropdown-content relative top-9 !mt-0">
+            <div class="py-1 w-full border-b-[.25rem] border-b-dark-blue"></div>
+            {{ range .Children }}
+            <li
+              class="relative bg-white {{ if .Page.Params.srOnly }}sr-only lg:!absolute{{ end }}{{ if .HasChildren }}has-children{{ end }}">
+              <a href="{{ .URL }}"
+                class='nav-dropdown text-sm block no-underline p-4 py-3 text-light {{ if $currentPage.IsMenuCurrent "main" . }}font-semibold text-white{{ end }} flex items-center justify-between'>
+                {{ .Name }} {{ if .HasChildren }}<span id="nav-dropdown-icon" class="text-xs pl-1 inline-block">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+                    <g fill="currentColor">
+                      <g>
+                        <path
+                          d="M20.65 7.4c-.3-.3-.75-.3-1.05 0L12 15 4.4 7.4c-.3-.3-.75-.3-1.05 0s-.3.75 0 1.05L12 17.1l8.65-8.65c.3-.25.3-.75 0-1.05z"
+                          fill-rule="evenodd"></path>
+                      </g>
+                    </g>
+                  </svg>
+                </span>{{end}}
+              </a>
+              {{ if .HasChildren }}
+              <ul
+                class="second-level-dropdown border-t-[.25rem] border-t-dark-blue absolute transform -translate-x-full top-0 bg-white border border-gray-200">
+                {{ range .Children }}
+                <li class="relative">
+                  <a href="{{ .URL }}" class="block no-underline p-4 py-3 text-sm text-gray-700 hover:bg-gray-100">
+                    {{ .Name }}
+                  </a>
+                </li>
+                {{ end }}
+              </ul>
+              {{ end }}
+            </li>
+            {{ end }}
+          </ul>
+
+
+        </li>
+
+        {{ else }}
+
+        <li class="!mx-[1rem] list-none  ">
+          <a href="{{ .URL }}"
+            class='text-xl lg:text-sm block font-header tracking-wider py-2 no-underline text-light lg:p-0 {{ if $currentPage.IsMenuCurrent "main" . }} text-white{{ end }}'>
+            {{if eq .Name "Online Degree Programs" . }}
+            Home
+            {{else }}
+            {{ .Name }}
+            {{end}}
+          </a>
+        </li>
+        {{ end }}
+
+        {{ end }}
+        {{if in .Permalink "/apply-now/"}}
+        <li class="hidden">
+          {{else}}
+        <li class="hidden lg:block lg:!ml-10 lg:pr-4">
+          <a href="/apply-now/"
+            class="text-center text-dark-red shadow-xl tertiary-button mx-auto lg:mx-0 w-[10rem] block">
+            Apply Now
+          </a>
+        </li>
+        {{end}}
+
+      </ul>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div
+      class="w-[80vw] md:w-[60vw] fixed flex flex-col top-0 h-screen lg:h-auto lg:w-auto lg:hidden bg-dark-red drop-shadow-2xl pt-24 pb-8 px-10 fade-out !z-20"
+      id="nav-bar-mobile">
+      <span id="nav-close" class="absolute top-0 right-2 p-4 cursor-pointer text-white text-3xl">&#10005;</span>
+      <div
+        class="flex flex-col gap-2 lg:items-center lg:justify-between pl-0 lg:pl-3 list-none mt-4 lg:flex-row lg:space-x-8 lg:mt-0 lg:text-sm lg:font-medium overflow-none !text-light">
+
+        {{ range .Site.Menus.main.ByWeight }}
+        {{ if .HasChildren}}
+        <!-- First Level Accordion -->
+        <dxp-accordion class="block lg:hidden py-4">
+          <dxp-collapsible>
+            <span slot="heading" class="text-xl font-header">{{.Name}}</span>
+            <div class="pl-4">
+              {{ range .Children }}
+              {{ if .HasChildren }}
+              <!-- Nested Accordion for Second Level -->
+              <dxp-accordion class="py-2">
+                <dxp-collapsible>
+                  <span slot="heading" class="text-md font-header flex justify-between items-center">
+                    <!-- Link for the Second-Level Parent -->
+                    <a href="{{ .URL }}" class="z-10 relative no-underline text-white">{{ .Name }}</a>
+                  </span>
+                  <div class="pl-4">
+                    {{ range .Children }}
+                    <!-- Further nesting or links -->
+                    <a href="{{ .URL }}"
+                      class='text-md block py-2 no-underline text-light {{ if $currentPage.IsMenuCurrent "main" . }}font-semibold !text-white{{ end }} lg:p-0'>
+                      {{ .Name }}
+                    </a>
+                    {{ end }}
+                  </div>
+                </dxp-collapsible>
+              </dxp-accordion>
+              {{ else }}
+              <!-- Regular Link for Items Without Children -->
+              <a href="{{ .URL }}"
+                class='text-md block py-2 no-underline text-light {{ if $currentPage.IsMenuCurrent "main" . }}font-semibold !text-white{{ end }} lg:p-0'>
+                {{ .Name }}
+              </a>
+              {{ end }}
+              {{ end }}
+            </div>
+          </dxp-collapsible>
+        </dxp-accordion>
+        {{ else }}
+        <!-- Regular Link for Top-Level Items Without Children -->
+        <a href="{{ .URL }}"
+          class='text-xl lg:text-lg block font-header py-[1.157rem] pr-4 no-underline !text-light lg:p-0 {{ if $currentPage.IsMenuCurrent "main" . }}font-semibold !text-white{{ end }}'>
+          {{ .Name }}
+        </a>
+        {{ end }}
+        {{ end }}
+
+      </div>
+      <a href="/apply-now/"
+        class="text-dark-red nav-request-info-btn no-underline cursor-pointer mx-auto lg:mx-0 min-w-[13.5rem] flex justify-center secondary-button bg-light text-[#252523] m-2 mt-12 flex-row items-center py-4 hover:text-white">
+        Apply Now
+      </a>
+    </div>
+
+  </div>
+</nav>
+<script>
+  const navBarDesktop = document.getElementById('header-nav')
+  const navBarDesktopLogo = document.getElementById('header-nav-logo')
+  const navBarMobile = document.getElementById('nav-bar-mobile')
+  const requestInfoBtn = document.querySelector('.nav-request-info-btn')
+  const close = document.getElementById('nav-close')
+  document.getElementById('nav-button').addEventListener('click', () => {
+    navBarMobile.classList.toggle('fade-in')
+    navBarMobile.classList.toggle('fade-out')
+  })
+  close.addEventListener('click', () => {
+    navBarMobile.classList.toggle('fade-in')
+    navBarMobile.classList.toggle('fade-out')
+  })
+  requestInfoBtn.addEventListener('click', () => {
+    navBarMobile.classList.toggle('fade-in')
+    navBarMobile.classList.toggle('fade-out')
+  })
+
+
+  // Function for Desktop Nav Scroll behavior
+  const onScroll = () => {
+    if (window.scrollY > 0) {
+      navBarDesktop.classList.add("scrolled");
+      navBarDesktopLogo.classList.add("scrolled-logo");
+
+    } else {
+      navBarDesktop.classList.remove("scrolled");
+      navBarDesktopLogo.classList.remove("scrolled-logo");
+
+    }
+  };
+
+  window.addEventListener("scroll", onScroll);
+
+</script>

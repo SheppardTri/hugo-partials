@@ -1,0 +1,23 @@
+{{ $related := .Site.RegularPages.Related . | first 3 }}
+{{ with $related }}
+<h2 class="text-3xl">Related Articles</h2>
+<div class="grid grid-cols-1 gap-6 justify-center pb-10">
+  {{ range . }}
+  <div class="text-left grid grid-cols-4 gap-4">
+    <a href="{{ .RelPermalink }}" class="contents">
+      <img class="col-span-1 rounded-lg aspect-square h-16 w-16" width="85px" height="85px"
+        src="{{ .Params.image_thumbnail.src }}" alt="{{ .Params.image_thumbnail.alt }}">
+    </a>
+    <div class="col-span-3">
+      <a href="{{ .RelPermalink }}" class="!text-black !no-underline">
+        <h5 class="mb-1 font-light font-body text-base leading-6 max-w-56" title="{{ .Summary }}">{{ .Title }}</h5>
+      </a>
+      <span class="text-xs m-0 p-0">{{ .Date.Format "Jan 2, 2006" }}</span>
+      <!-- <span class="gray-authors text-xs !text-gray-400 m-0 p-0">&#8226;
+        {{- partial "authors" . }}
+      </span> -->
+    </div>
+  </div>
+  {{ end }}
+</div>
+{{ end }}

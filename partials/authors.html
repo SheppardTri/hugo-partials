@@ -1,0 +1,9 @@
+{{ $taxon := "authors" }}
+{{ with .Param $taxon }}
+{{ range $index, $author := . }}
+{{- if gt $index 0 }}, {{ end -}}
+{{- with $.Site.GetPage (printf "/%s/%s" $taxon ($author|urlize)) -}}
+<a href="{{ .RelPermalink }}" class="!no-underline text-black">{{ $author }}</a>
+{{- end -}}
+{{- end -}}
+{{ end }}

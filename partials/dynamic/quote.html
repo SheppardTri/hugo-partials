@@ -1,0 +1,28 @@
+<div class="min-w-[100vw] bg-light flex justify-center lg:pb-2">
+  <div class="w-full max-w-[1000px] mx-auto flex flex-col items-center">
+    {{if .quoteImg}}
+    <div class="bg-white min-w-[100vw] flex justify-center relative -top-[7rem] px-8 sm:px-0">
+      <img width="{{.imgWidth}}" height="300px" class="relative top-[9.5rem]" src="/assets/images/{{ .img}}"
+        alt="{{ .alt}}">
+    </div>
+    {{else if .quoteVideo}}
+    <div class="bg-white min-w-[100vw] flex justify-center relative -top-[7rem] px-8 sm:px-0">
+      <dxp-video class="w-[100vw] sm:w-[650px] sm:my-6 sm:mb-10 lg:pt-0 relative top-[9.5rem]"
+        video-url="/assets/videos/{{.video}}" poster-url="/assets/videos/{{.img}}">
+      </dxp-video>
+    </div>
+    {{end}}
+    <div class="flex split-bg flex-col items-center px-8 pt-8 md:pt-4 pb-6 {{if .quoteImg}}{{.quoteImgMargin}}{{end}}">
+      <div class="sm:max-w-[600px] lg:max-w-full">
+        <figure class="quote mt-12 md:mt-6">
+          <blockquote class="font-header text-black font-semibold text-2xl text-center md:px-16 max-w-[700px]">
+            {{.quote | markdownify}}
+          </blockquote>
+          <figcaption class="text-base text-grey pt-6 pb-10 text-center">
+            {{.quoteAuthor | markdownify}}
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</div>

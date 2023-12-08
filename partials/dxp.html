@@ -1,0 +1,7 @@
+{{ $key := $.Param "storyKey" }}
+<n-data>
+  <dxp-experience id="dxp" hidden xapi-url="{{ .Site.Params.urls.xapi }}" story-key="{{ $key }}">
+  </dxp-experience>
+
+  <dxp-gtm skip-script></dxp-gtm>
+</n-data>

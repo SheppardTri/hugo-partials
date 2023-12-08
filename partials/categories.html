@@ -1,0 +1,8 @@
+{{ $taxon := "categories" }}
+{{ with .Param $taxon }}
+{{ range $category := . }}
+{{- with $.Site.GetPage (printf "/%s/%s" $taxon ($category|urlize)) -}}
+<a href="{{ .RelPermalink }}" class="block pr-2 text-brand !font-body">{{$category}}</a>
+{{- end }}
+{{- end -}}
+{{ end }}

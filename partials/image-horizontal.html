@@ -1,0 +1,33 @@
+{{ range . }}
+<div class="w-screen sm:py-2 mx-auto {{ .bgColor}}">
+  <div class="w-full mx-auto max-w-[1200px] sm:my-10 flex lg:flex-row flex-col justify-center items-center p-0 lg:px-6">
+    {{/* Image on Left */}}
+    <div
+      class="lg:w-1/2 mx-auto sm:px-8 sm:px-0 {{if .leftImg}}order-0{{else if .customOrder}}{{.customOrder}} {{else}} order-1{{end}} relative">
+      {{if .customBorder}}
+      <div
+        class="inline-block relative  h-full before:border-[1px] before:border-[#e84e63] before:absolute before:w-full before:h-full before:bottom-4 before:left-4">
+        {{end}}
+        <img width="500px" height="500px"
+          class="w-fit md:max-w-[650px] lg:max-w-[500px] {{if .noShadow}}{{else}}shadow-2xl{{end}} {{if .leftImg}}lg:ml-auto{{else}} lg:mr-auto{{end}}"
+          src="/assets/images/{{ .img}}" alt="{{ .alt}}">{{if .customBorder}}
+      </div>{{end}}
+    </div>
+    <div class="lg:w-1/2 {{if .leftImg}}lg:pl-20{{else}} lg:pr-20{{end}} px-6 sm:px-16 pb-8 lg:pb-0">
+      {{if .headline}}
+      <h2 class="md:mt-0 text-center md:text-left ">{{ .headline | markdownify}}</h2>
+      {{end}}
+      <p>{{ .text | markdownify}}</p>
+      {{partial "render-content" .sections}}
+      {{if .list}}
+      <ul>
+        {{range .}}
+        <li>{{.}}</li>
+        {{end}}
+      </ul>
+      {{end}}
+    </div>
+    {{/* Default Image on Right */}}
+  </div>
+</div>
+{{ end }}

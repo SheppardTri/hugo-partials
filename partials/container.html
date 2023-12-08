@@ -1,0 +1,6 @@
+{{ range . }}
+<div
+  class="text-left max-w-[800px] header-font mx-8 sm:mx-12 lg:mx-auto py-8 px-8  bg-white rounded-[8px] drop-shadow-2xl">
+  {{partial "render-content" .sections}}
+</div>
+{{ end }}

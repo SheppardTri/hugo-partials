@@ -1,0 +1,11 @@
+<div class="flex justify-center">
+  <button type="button" onclick="document.getElementById('modal').opened=true"
+    class="shadow-2xl no-underline hover:no-underline cursor-pointer max-w-[13rem] lg:max-w-[17rem] flex justify-center {{if .btnColor}}btn {{.btnColor}}{{else}}btn btn-primary{{end}} m-2 w-full flex-row items-center py-4 {{.btnTextColor}} {{.btnFont}} {{.classes}}">
+    {{.label}}
+  </button>
+  <dxp-modal size="large" id="modal">
+    <div class="p-6 max-w-[800px] mx-auto">
+      {{partial "render-content" .sections}}
+    </div>
+  </dxp-modal>
+</div>

@@ -1,0 +1,4 @@
+<div class="{{if .classes}}{{.classes}}{{end}}">
+  {{.text | markdownify}}
+  {{ partial "render-content" .sections }}
+</div>
